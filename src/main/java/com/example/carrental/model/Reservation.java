@@ -40,7 +40,7 @@ public class Reservation {
 	}
 
 	public boolean isOverlapping(LocalDate requestStart, LocalDate requestEnd) {
-		return !(requestStart.isAfter(endDate) || requestEnd.isBefore(startDate) || requestEnd.equals(startDate));
+	    return requestStart.isBefore(this.endDate) && requestEnd.isAfter(this.startDate);
 	}
 
 	public int getDurationInDays() {
