@@ -100,10 +100,8 @@ src/test/java/com/example/carrental/
 
 ```java
 public boolean isOverlapping(LocalDate requestStart, LocalDate requestEnd) {
-    // No overlap if request is completely before OR completely after existing reservation
-    return !(requestStart.isAfter(endDate) || 
-             requestEnd.isBefore(startDate) || 
-             requestEnd.equals(startDate));
+	// No overlap if request is completely before OR completely after existing reservation
+	return requestStart.isBefore(this.endDate) && requestEnd.isAfter(this.startDate);
 }
 ```
 
