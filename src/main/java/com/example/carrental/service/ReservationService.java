@@ -24,6 +24,7 @@ public class ReservationService {
 
 		Reservation reservation = new Reservation(customerId, carId, carType, startDate, endDate, totalCost);
 		reservations.put(reservation.getReservationId(), reservation);
+		reservation.confirm();
 		return reservation;
 	}
 
