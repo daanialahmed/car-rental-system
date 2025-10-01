@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.example.carrental.exception.ReservationNotFoundException;
 import com.example.carrental.model.CarType;
 import com.example.carrental.model.Reservation;
+import com.example.carrental.model.ReservationStatus;
 
 @Service
 public class ReservationService {
@@ -40,7 +41,7 @@ public class ReservationService {
 	}
 
 	public boolean isCarAvailable(String carId, LocalDate startDate, LocalDate endDate) {
-		return reservations.values().stream().filter(r -> r.getCarId().equals(carId) && r.isActive())
+		return reservations.values().stream().filter(r -> r.getCarId().equals(carId)).filter(this::isBlocking)
 				.noneMatch(r -> r.isOverlapping(startDate, endDate));
 	}
 
@@ -54,5 +55,9 @@ public class ReservationService {
 
 	public List<Reservation> getReservationsByCustomer(String customerId) {
 		return reservations.values().stream().filter(r -> r.getCustomerId().equals(customerId)).toList();
+	}
+
+	private boolean isBlocking(Reservation r) {
+		return r.getStatus() == ReservationStatus.PENDING || r.getStatus() == ReservationStatus.ACTIVE;
 	}
 }

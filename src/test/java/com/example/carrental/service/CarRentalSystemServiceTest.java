@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -122,7 +123,7 @@ class CarRentalSystemServiceTest {
 		customerService.addCustomer(customer2);
 
 		Car sedan1 = TestDataFactory.createTestSedan();
-		Car sedan2 = new Sedan("TEST999", "Honda", "Accord", 2023, null);
+		Car sedan2 = new Sedan("TEST999", "Honda", "Accord", 2023, new BigDecimal("85"));
 		carInventoryService.addCar(sedan1);
 		carInventoryService.addCar(sedan2);
 
@@ -204,7 +205,7 @@ class CarRentalSystemServiceTest {
 	@Test
 	void testLimitedInventoryScenario() {
 		carInventoryService.addCar(TestDataFactory.createTestSedan());
-		carInventoryService.addCar(new Sedan("TEST999", "Honda", "Accord", 2023, null));
+		carInventoryService.addCar(new Sedan("TEST999", "Honda", "Accord", 2023, new BigDecimal("85")));
 
 		Customer c1 = TestDataFactory.createTestCustomer("Customer 1", "c1@example.com");
 		Customer c2 = TestDataFactory.createTestCustomer("Customer 2", "c2@example.com");
